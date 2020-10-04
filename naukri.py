@@ -161,7 +161,7 @@ def tearDown(driver):
         pass
 
 
-def naukriLogin(headless = False):
+def naukriLogin(headless=False):
     """ Open Chrome browser and Login to Naukri.com"""
     status = False
     driver = None
