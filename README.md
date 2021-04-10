@@ -13,13 +13,17 @@ In order to use this, you need to have Python 3, Google Chrome and Selenium webd
 
 ## Installation
 
-Install [Python 3](https://www.python.org/getit/)
+Install [Python 3](https://www.python.org/getit/) and run the below commands
 
 ```bash
 git clone https://github.com/navchandar/Naukri.git
 cd Naukri
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+Update ResumePath, Naukri login username, password, mobile number in naukri.py file and then run the script
+```bash
 python naukri.py
 ```
 
