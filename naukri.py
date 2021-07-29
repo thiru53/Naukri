@@ -4,6 +4,7 @@
 
 import re
 import os
+import io
 import sys
 import time
 import logging
@@ -14,7 +15,8 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from PyPDF2 import PdfFileReader, PdfFileWriter
-import random, string, io
+from string import ascii_uppercase, digits
+from random import choice, randint
 from datetime import datetime
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -141,6 +143,10 @@ def tearDown(driver):
         pass
 
 
+def randomText():
+    return "".join(choice(ascii_uppercase + digits) for _ in range(randint(1, 5)))
+
+
 def LoadNaukri(headless):
     """Open Chrome to load Naukri.com"""
     options = webdriver.ChromeOptions()
@@ -176,6 +182,7 @@ def naukriLogin(headless = False):
         if "naukri" in driver.title.lower():
             log_msg("Website Loaded Successfully.")
 
+        emailFieldElement = None
         if is_element_present(driver, By.ID, "emailTxt"):
             emailFieldElement = GetElement(driver, "emailTxt", locator="ID")
             time.sleep(1)
@@ -288,10 +295,7 @@ def UpdateProfile(driver):
 def UpdateResume():
     try:
         # random text with with random location and size
-        txt = "".join(
-            random.choice(string.ascii_uppercase + string.digits)
-            for _ in range(random.randint(1, 10))
-        )
+        txt = randomText()
         xloc = random.randint(700, 1000)  # this ensures that text is 'out of page'
         fsize = random.randint(1, 10)
 
