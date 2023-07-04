@@ -1,4 +1,4 @@
 reportlab==3.5.55
 webdriver_manager==3.2.2
 selenium==3.141.0
-PyPDF2==1.27.5
+PyPDF2==1.27.9
