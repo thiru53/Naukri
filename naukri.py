@@ -22,6 +22,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from webdriver_manager.chrome import ChromeDriverManager as CM
 
+
 # Add folder Path of your resume
 originalResumePath = "original_resume.pdf"
 # Add Path where modified resume should be saved
@@ -38,12 +39,13 @@ updatePDF = True
 # ----- No other changes required -----
 
 # Set login URL
-NaukriURL = "https://login.naukri.com/nLogin/Login.php"
+NaukriURL = "https://www.naukri.com/nlogin/login"
 
 logging.basicConfig(
     level=logging.INFO, filename="naukri.log", format="%(asctime)s    : %(message)s"
 )
 # logging.disable(logging.CRITICAL)
+os.environ['WDM_LOCAL'] = "1"
 os.environ["WDM_LOG_LEVEL"] = "0"
 
 
@@ -189,7 +191,7 @@ def naukriLogin(headless = False):
             passFieldElement = GetElement(driver, "pwd1", locator="ID")
             time.sleep(1)
             loginXpath = "//*[@type='submit' and @value='Login']"
-            loginButton = driver.find_element_by_xpath(loginXpath)
+            loginButton = GetElement(driver, loginXpath, locator="XPATH")
 
         elif is_element_present(driver, By.ID, "usernameField"):
             emailFieldElement = GetElement(driver, "usernameField", locator="ID")
@@ -197,7 +199,7 @@ def naukriLogin(headless = False):
             passFieldElement = GetElement(driver, "passwordField", locator="ID")
             time.sleep(1)
             loginXpath = '//*[@type="submit"]'
-            loginButton = driver.find_element_by_xpath(loginXpath)
+            loginButton = GetElement(driver, loginXpath, locator="XPATH")
 
         else:
             log_msg("None of the elements found to login.")
